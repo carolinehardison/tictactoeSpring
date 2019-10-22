@@ -9,7 +9,6 @@ import javax.persistence.*;
  * The persistent class for the minimax database table.
  */
 @Entity
-@NamedQuery(name = "Minimax.findAll", query = "SELECT m FROM Minimax m")
 public class Minimax {
 
     private static final long serialVersionUID = 1L;
@@ -34,11 +33,6 @@ public class Minimax {
     private String h;
     @Column
     private String i;
-    @Column
-    private int moveCol;
-
-    @Column
-    private int moveRow;
 
     @Column
     private int score;
@@ -48,7 +42,7 @@ public class Minimax {
 
     }
 
-    public Minimax(Board board, Location loc, int score) {
+    public Minimax(Board board, int score) {
         a = "" + board.get(0, 0);
         b = "" + board.get(0, 1);
         c = "" + board.get(0, 2);
@@ -58,8 +52,6 @@ public class Minimax {
         g = "" + board.get(2, 0);
         h = "" + board.get(2, 1);
         i = "" + board.get(2, 2);
-        moveCol = loc.col;
-        moveRow = loc.row;
         this.score = score;
     }
 
@@ -157,22 +149,6 @@ public class Minimax {
 
     public void setI(String i) {
         this.i = i;
-    }
-
-    public int getMoveCol() {
-        return moveCol;
-    }
-
-    public void setMoveCol(int moveCol) {
-        this.moveCol = moveCol;
-    }
-
-    public int getMoveRow() {
-        return moveRow;
-    }
-
-    public void setMoveRow(int moveRow) {
-        this.moveRow = moveRow;
     }
 
     public int getScore() {

@@ -11,11 +11,10 @@ public class Location {
 
     public int row;
     public int col;
-    public boolean valid;
+    private String correspondingLetter;
     /**
      * the name in the mysql database
      */
-    String correspondingLetter;
 
     /**
      * @param row row on tic tac toe board
@@ -24,43 +23,7 @@ public class Location {
     public Location(int row, int col) {
         this.row = row;
         this.col = col;
-        valid = row >= 0 && row <= 2 && col >= 0 && col <= 2;
         setCorrespondingLetter();
-    }
-
-    public Location(String l){
-        switch (l) {
-            case "a":
-                row = 0;
-                col = 0;
-            case "b":
-                row = 0;
-                col =  1;
-            case "c":
-                row = 0;
-                col = 2;
-            case "d":
-                row = 1;
-                col = 0;
-            case "e":
-                row = 1;
-                col = 1;
-            case "f":
-                row = 1;
-                col = 2;
-            case "g":
-                row = 2;
-                col = 0;
-            case "h":
-                row = 2;
-                col = 1;
-            case "i":
-                row = 2;
-                col = 2;
-            default:
-                row = -1;
-                col = -1;
-        }
     }
 
     public static Location findByLetter(String l) {
@@ -86,39 +49,6 @@ public class Location {
             default:
                 return new Location(-1, -1);
         }
-    }
-
-    /**
-     * this method takes in what has been played and spits out what hasn't
-     *
-     * @param a all the Locations that have been selected
-     * @return all locations that have not been selected
-     */
-    public static List<Location> Available(Location... a) {
-
-        List<Location> loc = new ArrayList<>();
-        loc.add(new Location(0, 0));
-        loc.add(new Location(0, 1));
-        loc.add(new Location(0, 2));
-        loc.add(new Location(1, 0));
-        loc.add(new Location(1, 1));
-        loc.add(new Location(1, 2));
-        loc.add(new Location(2, 0));
-        loc.add(new Location(2, 1));
-        loc.add(new Location(2, 2));
-        for (Location temp : a) {
-
-            for (int i = 0; i < loc.size(); i++) {
-                Location check = loc.get(i);
-                if (temp.col == check.col && temp.row == check.row) {
-                    loc.remove(check);
-                }
-
-            }
-        }
-        return loc;
-
-
     }
 
     public void setCorrespondingLetter() {

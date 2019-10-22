@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Component
 public class Board implements Serializable {
 
@@ -189,8 +190,7 @@ public class Board implements Serializable {
         return l;
     }
 
-
-    public String toString() {
+    public String toString(){
         String x = "";
         x += "+———+———+———+\n";
         x += "| " + board[0][0] + " | " + board[0][1] + " | " + board[0][2] + " |\n";

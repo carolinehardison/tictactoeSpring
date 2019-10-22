@@ -58,6 +58,7 @@ public class Computer {
     }
 
     public Board easyMove(Board b, char letter) {
+        //random movement
         double r = Math.random() * 3;
         double c = Math.random() * 3;
         if (b.get((int) r, (int) c) == ' ') {
@@ -91,40 +92,47 @@ public class Computer {
         return easyMove(b, letter);
     }
 
-    public int minimax(Board board, Boolean optimizeForX, int depth) {
-        if (ms.allMovesStored(board)) {
-            return ms.bestPossibleScore(board, optimizeForX);
-        } else if (board.gameOver()) {
-            if (board.getScore() == 0) {
+    public int minimax(Board board, boolean optimizeForX, int depth) {
+            if (ms.allMovesStored(board)) { //if all the children are in repository, recursion can stop
+                return ms.bestPossibleScore(board, optimizeForX);
+            }
+            if (board.gameOver()) {
+                ms.store(board, board.getScore());
                 return board.getScore();
             }
-            return board.getScore();
-        }
-        if (optimizeForX) {
-            int bestVal = -20;
-            List<Location> possibleMoves = board.availableMoves();
-            for (Location move : possibleMoves) {
-                board.set(move, 'X');
-                int value = minimax(board, false, depth + 1);
-                board.clearSpot(move);
-                ms.store(board, move, value);
-                bestVal = Math.max(bestVal, value);
+            if(optimizeForX){
+                int best = -10;
+                for(int r = 0; r<3;r++){
+                    for(int c = 0; c<3;c++){
+                        if(board.validMove(r,c)){
+                            board.set(r,c,'X');
+                            int val = minimax(board,false,depth+1);
+                            best = Math.max(best, val);
+                            board.set(r,c,' ');
+                        }
+                    }
+                }
+                ms.store(board, best);
+                return best;
+            }else{
+                int best = 10;
+                for(int r = 0; r<3;r++){
+                    for(int c = 0; c<3;c++){
+                        if(board.validMove(r,c)){
+                            board.set(r,c,'O');
+                            int val = minimax(board,true,depth+1);
+                            best = Math.min(best, val);
+                            board.set(r,c,' ');
+                        }
+                    }
+                }
+                ms.store(board, best);
+                return best;
             }
-            return bestVal;
-        } else {
-            int bestVal = 20;
-            List<Location> possibleMoves = board.availableMoves();
-            for (Location move : possibleMoves) {
-                board.set(move, 'O');
-                int value = minimax(board, true, depth + 1);
-                board.clearSpot(move);
-                ms.store(board, move, value);
-                bestVal = Math.min(bestVal, value);
-            }
-            return bestVal;
-        }
+
 
     }
+
 
 
     /**

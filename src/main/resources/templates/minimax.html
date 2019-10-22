@@ -1,39 +1,33 @@
 <!DOCTYPE html>
 <html xmlns:th="www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
+    <link href="/webjars/bootstrap/4.3.1/css/bootstrap.css" rel="stylesheet"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <title>Minimaxes</title>
 </head>
 <body>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Minimax Directory</a>
+        </div>
+    </div>
+</nav>
 <table class="table table-stripped">
     <thead>
     <tr>
         <td>Id</td>
-        <td>a</td>
-        <td>b</td>
-        <td>c</td>
-        <td>d</td>
-        <td>e</td>
-        <td>f</td>
-        <td>g</td>
-        <td>h</td>
-        <td>i</td>
-        <td>move_col</td>
-        <td>move_row</td>
-        <td>score</td>
+        <td>Board</td>
+        <td>Score</td>
     </tr>
     </thead>
     <tr th:each="minimax:${minimaxes}">
         <td th:text="${minimax.getId()}">Id</td>
-        <td th:text="${minimax.getA()}">a</td>
-        <td th:text="${minimax.getB()}">b</td>
-        <td th:text="${minimax.getC()}">c</td>
-        <td th:text="${minimax.getD()}">d</td>
-        <td th:text="${minimax.getE()}">e</td>
-        <td th:text="${minimax.getF()}">f</td>
-        <td th:text="${minimax.getG()}">g</td>
-        <td th:text="${minimax.getH()}">h</td>
-        <td th:text="${minimax.getI()}">i</td>
-        <td th:text="${minimax.getMoveCol()}">move_col</td>
-        <td th:text="${minimax.getMoveRow()}">move_row</td>
+        <td>
+            <p th:text="${'|'+minimax.getA()+'|'+minimax.getB()+'|'+minimax.getC()+'|'}"></p>
+            <p th:text="${'|'+minimax.getD()+'|'+minimax.getE()+'|'+minimax.getF()+'|'}"></p>
+            <p th:text="${'|'+minimax.getG()+'|'+minimax.getH()+'|'+minimax.getI()+'|'}"></p>
+        </td>
         <td th:text="${minimax.getScore()}">score</td>
     </tr>
 </table>

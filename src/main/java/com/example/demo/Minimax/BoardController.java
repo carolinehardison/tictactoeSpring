@@ -14,6 +14,7 @@ public class BoardController {
     int wins, losses, ties;
     private Board board;
     private Computer computer;
+    private boolean PlayerFirst;
 
     @Autowired
     public BoardController(Computer computer){
@@ -22,21 +23,23 @@ public class BoardController {
     }
 
     public void init(){
+        PlayerFirst = false;
         wins = 0;
         losses = 0;
         ties = 0;
         board = new Board();
-        computer.setDifficulty(0);
+        computer.setDifficulty(3);
     }
 
     @RequestMapping("/")
     public String board(Model model){
         if(board==null)
             this.init();
+        if(board.moves()==0 && !PlayerFirst)
+            board = computer.move(board);
         model.addAttribute("wins", wins);
         model.addAttribute("ties", ties);
         model.addAttribute("losses", losses);
-        model.addAttribute("difficulty",computer.difficulty);
         model.addAttribute("board", board);
         return "board";
     }
@@ -48,11 +51,12 @@ public class BoardController {
     }
 
     @RequestMapping("/modalPop")
-    public String newGame(int difficulty, boolean isPlayerFirst, Model model) {
+    public String newGame(int difficulty, boolean isPlayerFirst) {
         board.reset();
         computer.setDifficulty(difficulty);
         System.out.println("Set difficulty to "+ difficulty);
         System.out.println("Player is first: "+ isPlayerFirst);
+        this.PlayerFirst = isPlayerFirst;
         if(!isPlayerFirst){
             board = computer.move(board);
         }
@@ -61,7 +65,7 @@ public class BoardController {
 
 
     @RequestMapping(value ="/play", method = {RequestMethod.PUT, RequestMethod.GET})
-    public String play(String playerMove, Model model) {
+    public String play(String playerMove) {
         Location l = Location.findByLetter(playerMove);
         if(!board.gameOver() && board.validMove(l)) //move if game not over and spot is valid
             board.set(l);
@@ -74,6 +78,8 @@ public class BoardController {
                 else
                     losses++;
             }
+        }else if(board.gameOver() && board.getScore()==0){
+            ties++;
         }else if(!board.full()){ //game is over and board isn't full
             wins++;
         }
