@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+<head>
+    <script type="text/javascript" src="/webjars/jquery/3.4.1/jquery.min.js"></script>
+    <link href="/webjars/bootstrap/4.3.1/css/bootstrap.css" rel="stylesheet"/>
+    <script type="text/javascript" src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../static/js/board.js" th:src="@{/js/board.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <title>Tic Tac Toe</title>
+
+</head>
+<body>
+<h1>Wins <span th:text="${wins}"></span>  Ties <span th:text="${ties}"></span>   Losses <span th:text="${losses}"></span></h1>
+
+<table>
+    <tr>
+        <td>
+                <div th:with="expr_result = ${board.validMove(0,0)}">
+                    <div th:if="${expr_result}">
+                        <form th:if="${!board.gameOver()}" th:action="@{/board/play}">
+                            <input type="hidden" name="playerMove" value="a">
+                            <input type="image" alt="Submit" th:src="@{/images/Blank.png}" name="playerMove" height="80" width="80">
+                        </form>
+                        <img th:if="${board.gameOver()}" th:src="@{/images/Blank.png}" height="80" width="80">
+                    </div>
+                    <div th:unless="${expr_result}">
+                        <img th:if="${board.Xspot(0,0)}" th:src="@{/images/X.png}" height="80" width="80">
+                        <img th:unless="${board.Xspot(0,0)}" th:src="@{/images/O.png}" height="80" width="80">
+                    </div>
+                </div>
+
+        </td>
+
+
+        <td class="vert">
+            <div th:with="expr_result = ${board.validMove(0,1)}">
+                <div th:if="${expr_result}">
+                    <form th:if="${!board.gameOver()}" th:action="@{/board/play}">
+                        <input type="hidden" name="playerMove" value="b">
+                        <input type="image" alt="Submit" th:src="@{/images/Blank.png}" name="playerMove" height="80" width="80">
+                    </form>
+                    <img th:if="${board.gameOver()}" th:src="@{/images/Blank.png}" height="80" width="80">
+                </div>
+                <div th:unless="${expr_result}">
+                    <img th:if="${board.Xspot(0,1)}" th:src="@{/images/X.png}" height="80" width="80">
+                    <img th:unless="${board.Xspot(0,1)}" th:src="@{/images/O.png}" height="80" width="80">
+                </div>
+            </div>
+        </td>
+
+
+        <td id="C">
+            <div th:with="expr_result = ${board.validMove(0,2)}">
+                <div th:if="${expr_result}">
+                    <form th:if="${!board.gameOver()}" th:action="@{/board/play}">
+                        <input type="hidden" name="playerMove" value="c">
+                        <input type="image" alt="Submit" th:src="@{/images/Blank.png}" name="playerMove" value="a" height="80" width="80">
+                    </form>
+                    <img th:if="${board.gameOver()}" th:src="@{/images/Blank.png}" height="80" width="80">
+                </div>
+                <div th:unless="${expr_result}">
+                    <img th:if="${board.Xspot(0,2)}" th:src="@{/images/X.png}" height="80" width="80">
+                    <img th:unless="${board.Xspot(0,2)}" th:src="@{/images/O.png}" height="80" width="80">
+                </div>
+            </div>
+
+        </td>
+    </tr>
+    <tr>
+        <td id="D" class="hori">
+            <div th:with="expr_result = ${board.validMove(1,0)}">
+                <div th:if="${expr_result}">
+                    <form th:if="${!board.gameOver()}" th:action="@{/board/play}">
+                        <input type="hidden" name="playerMove" value="d">
+                        <input type="image" alt="Submit" th:src="@{/images/Blank.png}" name="playerMove" value="a" height="80" width="80">
+                    </form>
+                    <img th:if="${board.gameOver()}" th:src="@{/images/Blank.png}" height="80" width="80">
+                </div>
+                <div th:unless="${expr_result}">
+                    <img th:if="${board.Xspot(1,0)}" th:src="@{/images/X.png}" height="80" width="80">
+                    <img th:unless="${board.Xspot(1,0)}" th:src="@{/images/O.png}" height="80" width="80">
+                </div>
+            </div>
+        </td>
+        <td id="E" class="vert hori">
+            <div th:with="expr_result = ${board.validMove(1,1)}">
+                <div th:if="${expr_result}">
+                    <form th:if="${!board.gameOver()}" th:action="@{/board/play}">
+                        <input type="hidden" name="playerMove" value="e">
+                        <input type="image" alt="Submit" th:src="@{/images/Blank.png}" name="playerMove" value="a" height="80" width="80">
+                    </form>
+                    <img th:if="${board.gameOver()}" th:src="@{/images/Blank.png}" height="80" width="80">
+                </div>
+                <div th:unless="${expr_result}">
+                    <img th:if="${board.Xspot(1,1)}" th:src="@{/images/X.png}" height="80" width="80">
+                    <img th:unless="${board.Xspot(1,1)}" th:src="@{/images/O.png}" height="80" width="80">
+                </div>
+            </div>
+        </td>
+        <td id="F" class="hori">
+            <div th:with="expr_result = ${board.validMove(1,2)}">
+                <div th:if="${expr_result}">
+                    <form th:if="${!board.gameOver()}" th:action="@{/board/play}">
+                        <input type="hidden" name="playerMove" value="f">
+                        <input type="image" alt="Submit" th:src="@{/images/Blank.png}" name="playerMove" value="a" height="80" width="80">
+                    </form>
+                    <img th:if="${board.gameOver()}" th:src="@{/images/Blank.png}" height="80" width="80">
+                </div>
+                <div th:unless="${expr_result}">
+                    <img th:if="${board.Xspot(1,2)}" th:src="@{/images/X.png}" height="80" width="80">
+                    <img th:unless="${board.Xspot(1,2)}" th:src="@{/images/O.png}" height="80" width="80">
+                </div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td id="G">
+            <div th:with="expr_result = ${board.validMove(2,0)}">
+                <div th:if="${expr_result}">
+                    <form th:if="${!board.gameOver()}" th:action="@{/board/play}">
+                        <input type="hidden" name="playerMove" value="g">
+                        <input type="image" alt="Submit" th:src="@{/images/Blank.png}" name="playerMove" value="a" height="80" width="80">
+                    </form>
+                    <img th:if="${board.gameOver()}" th:src="@{/images/Blank.png}" height="80" width="80">
+                </div>
+                <div th:unless="${expr_result}">
+                    <img th:if="${board.Xspot(2,0)}" th:src="@{/images/X.png}" height="80" width="80">
+                    <img th:unless="${board.Xspot(2,0)}" th:src="@{/images/O.png}" height="80" width="80">
+                </div>
+            </div>
+        </td>
+        <td id="H" class="vert">
+            <div th:with="expr_result = ${board.validMove(2,1)}">
+                <div th:if="${expr_result}">
+                    <form th:if="${!board.gameOver()}" th:action="@{/board/play}">
+                        <input type="hidden" name="playerMove" value="h">
+                        <input type="image" alt="Submit" th:src="@{/images/Blank.png}" name="playerMove" value="a" height="80" width="80">
+                    </form>
+                    <img th:if="${board.gameOver()}" th:src="@{/images/Blank.png}" height="80" width="80">
+                </div>
+                <div th:unless="${expr_result}">
+                    <img th:if="${board.Xspot(2,1)}" th:src="@{/images/X.png}" height="80" width="80">
+                    <img th:unless="${board.Xspot(2,1)}" th:src="@{/images/O.png}" height="80" width="80">
+                </div>
+            </div>
+        </td>
+        <td id="I">
+            <div th:with="expr_result = ${board.validMove(2,2)}">
+                <div th:if="${expr_result}">
+                    <form th:if="${!board.gameOver()}" th:action="@{/board/play}">
+                        <input type="hidden" name="playerMove" value="i">
+                        <input type="image" alt="Submit" th:src="@{/images/Blank.png}" name="playerMove" value="a" height="80" width="80">
+                    </form>
+                    <img th:if="${board.gameOver()}" th:src="@{/images/Blank.png}" height="80" width="80">
+                </div>
+                <div th:unless="${expr_result}">
+                    <img th:if="${board.Xspot(2,2)}" th:src="@{/images/X.png}" height="80" width="80">
+                    <img th:unless="${board.Xspot(2,2)}" th:src="@{/images/O.png}" height="80" width="80">
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+<div style="display: flex; justify-content: center;">
+
+<button th:if="${board.gameOver()}"  type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#newGameModal">Settings</button>
+</div>
+<div style="display: flex; justify-content: center;">
+<form th:action="@{/board/reset}" th:if="${board.gameOver()}">
+    <button type="submit" style="display: flex; justify-content: center;" class="btn btn-info btn-lg">Reset</button>
+</form>
+</div>
+<!--MODAL-->
+<div class="modal fade" id="newGameModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <form th:action="@{/board/modalPop}" method="POST">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">New Game</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="radio" name="difficulty" value="0" checked>Easy
+                    <input type="radio" name="difficulty" value="1">Medium
+                    <input type="radio" name="difficulty" value="2">Hard
+                    <input type="radio" name="difficulty" value="3">Impossible <br>
+
+                    <input type="checkbox" id="isPlayerFirst" name="isPlayerFirst">
+                    <label for="isPlayerFirst">I play first</label>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+            </form>
+        </div>
+</div>
+
+</body>
+</html>
