@@ -1,4 +1,4 @@
-package com.example.demo.Minimax;
+package com.example.demo.tictactoe;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

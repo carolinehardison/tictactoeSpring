@@ -1,7 +1,4 @@
-package com.example.demo.Minimax;
-
-import java.util.ArrayList;
-import java.util.List;
+package com.example.demo.tictactoe;
 
 /**
  * this class is meant as a shortcut for writng out the row and col of tic tac toe moves

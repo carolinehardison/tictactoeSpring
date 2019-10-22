@@ -1,4 +1,4 @@
-package com.example.demo.Minimax;
+package com.example.demo.tictactoe;
 
 
 import org.springframework.stereotype.Component;
